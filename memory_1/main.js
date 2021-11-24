@@ -26,6 +26,7 @@ var picturesArray = [{
 let firstGuess = '';
 let secondGuess = '';
 let count = 0;
+let previousTarget = null;
 
 const game = document.getElementById('game')
 
@@ -62,8 +63,12 @@ gameGrid.forEach((item) => {
   grid.addEventListener('click', function (event){
 	  let clicked = event.target;
 
+	  if(clicked.nodeName === 'SECTION' || clicked === previousTarget){
+		return
+	}
+
 	  if(clicked.nodeName === 'section'){
-		  return;
+		return;
 	  }
 
 	  if(count < 2){
@@ -79,13 +84,30 @@ gameGrid.forEach((item) => {
 		if(firstGuess != '' && secondGuess != ''){
 			if(firstGuess === secondGuess){
 				match();
+				resetGuesses()
+			}else {
+				resetGuesses()
 			}
 		}
-  
+
+		previousTarget = clicked;
+
+		
 		clicked.classList.add('selected');
 	}
   }
 )
+
+const resetGuesses = () => {
+	firstGuess = '';
+	secondGues = '';
+	count = 0;
+
+	var selected = document.querySelectorAll('.selected')
+	selected.forEach((card) => {
+		card.classList.remove('selected');
+	})
+}
 
 const match = () => {
 	let selected = document.querySelectorAll('.selected');

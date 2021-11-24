@@ -51,7 +51,7 @@ p {
   
   .card {
     margin: 5px;
-    background-color: #6589f9;
+    /* background-color: #6589f9; */
     background-repeat: no-repeat;
     background-position: center center;
     height: 80px;
