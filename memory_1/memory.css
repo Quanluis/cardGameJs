@@ -1,3 +1,10 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
 body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 100%;
@@ -67,29 +74,24 @@ p {
       backface-visibility: hidden;
   }
   .front {
-    border: 2px solid red;
-    background: url('./images/back.png');
+    background: url('./images/back.png') no-repeat center center / contain;
+
   }
   .back{
-      background: url('./images/back.png');
       transform: rotateY(180deg);
       background-color: white;
       background-size: contain;
       background-repeat: no-repeat;
       background-position: center center;
+
   }
 
 .selected {
-    
     transform: rotateY(180deg);
 }
-
-.match, 
-.front {
-    background: white !important;
-}
 .match {
-    border: 4px solid red;
+    border: 3px solid white;
+    background: white !important;
 }
 .clear {
     clear: both;

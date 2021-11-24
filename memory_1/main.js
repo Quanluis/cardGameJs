@@ -1,6 +1,7 @@
 $(document).ready( () => {
 	$('#tabs').tabs();
 })
+
 //Array 
 
 var picturesArray = [{
@@ -19,7 +20,120 @@ var picturesArray = [{
 		name: 'flower',
 		images: 'images/card_4.png',
 	},
+	{
+		name: 'joker',
+		images: 'images/card_5.png',
+	},
+	{
+		name: 'coffee',
+		images: 'images/card_6.png',
+	},
+	{
+		name: 'egg',
+		images: 'images/card_7.png',
+	},
+	{
+		name: 'fire',
+		images: 'images/card_8.png',
+	},
+	{
+		name: 'giraffe',
+		images: 'images/card_9.png',
+	},
+	{
+		name: 'glacier',
+		images: 'images/card_10.png',
+	},
+	{
+		name: 'clover',
+		images: 'images/card_11.png',
+	},
+	{
+		name: 'ice',
+		images: 'images/card_12.png',
+	},
+	{
+		name: 'orange',
+		images: 'images/card_13.png',
+	},
+	{
+		name: 'oranges',
+		images: 'images/card_14.png',
+	},
+	{
+		name: 'penguin',
+		images: 'images/card_15.png',
+	},
+	{
+		name: 'pinkFlower',
+		images: 'images/card_16.png',
+	},
+	{
+		name: 'peach',
+		images: 'images/card_17.png',
+	},
+	{
+		name: 'pinkRose',
+		images: 'images/card_18.png',
+	},
+	{
+		name: 'sheep',
+		images: 'images/card_19.png',
+	},
+	{
+		name: 'snowman',
+		images: 'images/card_20.png',
+	},
+	{
+		name: 'teabag',
+		images: 'images/card_21.png',
+	},
+	{
+		name: 'tic-tac-toe',
+		images: 'images/card_22.png',
+	},
+	{
+		name: 'whale',
+		images: 'images/card_23.png',
+	},
+	{
+		name: 'baloons',
+		images: 'images/card_24.png',
+	},
 ];
+
+picturesArray = picturesArray.slice(0.4);
+
+let result = localStorage.getItem('result');
+let name = localStorage.getItem('name');
+document.getElementById('player').innerText = 'Name: ' + name;
+document.getElementById('high_score').innerHTML = 'High Score: ';
+document.getElementById('correct').innerHTML = 'Correct: ';
+
+if(result === '8'){
+	console.log('8 game card')
+	picturesArray = picturesArray.slice(0, 4);
+}
+if(result === '16'){
+	console.log('16 game card')
+	picturesArray = picturesArray.slice(0, 8);
+}
+if(result === '24'){
+	console.log('24 game card')
+	picturesArray = picturesArray.slice(0, 12);
+}
+if(result === '32'){
+	console.log('32 game card')
+	picturesArray = picturesArray.slice(0, 16);
+}
+if(result === '40'){
+	console.log('40 game card')
+	picturesArray = picturesArray.slice(0, 20);
+}
+if(result === '48'){
+	console.log('48 game card')
+	picturesArray = picturesArray.slice(0, 24);
+}
 
 // Variables
 
@@ -96,14 +210,11 @@ gameGrid.forEach((item) => {
 
 		if(firstGuess != '' && secondGuess != ''){
 			if(firstGuess === secondGuess){
-			//	match();
-			//	resetGuesses()
 
 			setTimeout(match, delay);
 			setTimeout(resetGuesses, delay);
 
 			}else {
-			//	resetGuesses()
 			setTimeout(resetGuesses, delay)
 			}
 		}
@@ -134,87 +245,18 @@ const match = () => {
 	})
 }
 
-// global variables 
-
-// let firstGuess = '';
-// let secondGuess = '';
-// let count = 0;
-// let previousTarget = null;
-// let delay = 1200;
-
-// // Creates the card grid. 
-
-// const game = document.getElementById('game');
-// const grid = document.createElement('section');
-
-// grid.setAttribute('class', 'grid');
-// game.appendChild(grid);
-
-// gameGrid.forEach((item) => {
-
-// 	// const { name, images } = item;
-
-// 	// Create card element with the name dataset 
-// 	const card = document.createElement('div');
-
-// 	card.classList.add('card');
-// 	card.dataset.name = item.name;
-
-// 	// create front of card
-// 	const front = document.createElement('div');
-// 	front.classList.add('front');
-
-// 	// create back of card, which contains
-// 	const back = document.createElement('div');
-// 	back.classList.add('back');
-// 	back.style.backgroundImage = `url(${item.images})`;
-
-// 	// apppend card to the grid, and front and back to each card.
-// 	grid.appendChild(card);
-// 	card.appendChild(front);
-// 	card.appendChild(back);
-
-// });
-
-
-
-// function turn(){
-
-// 	let x = document.querySelectorAll('.back').forEach( () => {
-
-// 		var pictures = ['images/back.png', 'images/blank.png', 'images/card_1.png', 'images/card_2.png', 'images/card_3.png', 'images/card_4'];
-
-// 		document.getElementById("back_card").src = pictures[4];
-// 	})
-
-// 	console.log(x);
-		
-// }
-
-// function playGame(){
-	
-// 	var pictures = ['images/back.png', 'images/blank.png', 'images/card_1.png', 'images/card_2.png', 'images/card_3.png', 'images/card_4'];
-
-// 	document.getElementById("back_card").src = pictures[4];
-// 	turn();
-
-// }
-
 function save(){
 	console.log('this button is clicked.')
 
 	let name = document.getElementById('player_name').value;
-	document.getElementById('player').innerText = name;
 
-	document.getElementById('high_score').innerHTML = 'High Score: ';
-	document.getElementById('correct').innerHTML = 'Correct: ';
+	var selectedElem = document.getElementById('num_cards');
 
-	var x = document.getElementById('num_cards').selectedIndex;
+	var result = selectedElem.options[selectedElem.selectedIndex].value;
 
-	alert(document.getElementsByTagName('option')[x].value);
+	window.location.reload(true);
+	localStorage.setItem('name', name);
+	localStorage.setItem('result', result);
 
-	
-
-	
-
+	return result;
 }
