@@ -27,6 +27,7 @@ let firstGuess = '';
 let secondGuess = '';
 let count = 0;
 let previousTarget = null;
+let delay = 1000;
 
 const game = document.getElementById('game')
 
@@ -41,29 +42,41 @@ let gameGrid = picturesArray.concat(picturesArray);
 
 gameGrid.sort(() => 0.5 - Math.random());
 
+const selectGame = () => {
+	document.getElementById('num_cards').onselect( () => {
+		console.log('this works');
+	}) 
+}
 
 
 gameGrid.forEach((item) => {
-	// Create a div
+	// Create a card element
 	const card = document.createElement('div')
-  
-	// Apply a card class to that div
-	card.classList.add('card')
-  
-	// Set the data-name attribute of the div to the cardsArray name
-	card.dataset.name = item.name
-  
-	// Apply the background image of the div to the cardsArray image
-	card.style.backgroundImage = `url(${item.images})`
+  	card.classList.add('card')
+  	card.dataset.name = item.name
+
+	//Create front of the card. 
+
+	const front = document.createElement('div');
+	front.classList.add('front');
+
+	//Create back of card
+	const back = document.createElement('div');
+	back.classList.add('back');
+	back.style.backgroundImage = `url(${item.images})`
   
 	// Append the div to the grid section
 	grid.appendChild(card)
+	card.appendChild(front);
+	card.appendChild(back);
   });
 
   grid.addEventListener('click', function (event){
 	  let clicked = event.target;
 
-	  if(clicked.nodeName === 'SECTION' || clicked === previousTarget){
+	  if(clicked.nodeName === 'SECTION' || 
+	  	clicked === previousTarget ||
+		clicked.parentNode.classList.contains('selected')){
 		return
 	}
 
@@ -74,19 +87,24 @@ gameGrid.forEach((item) => {
 	  if(count < 2){
 		count++;
 		if(count === 1){
-			firstGuess = clicked.dataset.name;
-			clicked.classList.add('selected');
+			firstGuess = clicked.parentNode.dataset.name;
+			clicked.parentNode.classList.add('selected');
 		}else{
-			secondGuess = clicked.dataset.name;
-			clicked.classList.add('selected');
+			secondGuess = clicked.parentNode.dataset.name
+			clicked.parentNode.classList.add('selected');
 		}
 
 		if(firstGuess != '' && secondGuess != ''){
 			if(firstGuess === secondGuess){
-				match();
-				resetGuesses()
+			//	match();
+			//	resetGuesses()
+
+			setTimeout(match, delay);
+			setTimeout(resetGuesses, delay);
+
 			}else {
-				resetGuesses()
+			//	resetGuesses()
+			setTimeout(resetGuesses, delay)
 			}
 		}
 
@@ -100,7 +118,7 @@ gameGrid.forEach((item) => {
 
 const resetGuesses = () => {
 	firstGuess = '';
-	secondGues = '';
+	secondGuess = '';
 	count = 0;
 
 	var selected = document.querySelectorAll('.selected')
@@ -182,13 +200,21 @@ const match = () => {
 
 // }
 
-// function save(){
-// 	console.log('this button is clicked.')
+function save(){
+	console.log('this button is clicked.')
 
-// 	let name = document.getElementById('player_name').value;
-// 	document.getElementById('player').innerText = name;
+	let name = document.getElementById('player_name').value;
+	document.getElementById('player').innerText = name;
 
-// 	document.getElementById('high_score').innerHTML = 'High Score: ';
-// 	document.getElementById('correct').innerHTML = 'Correct: ';
+	document.getElementById('high_score').innerHTML = 'High Score: ';
+	document.getElementById('correct').innerHTML = 'Correct: ';
 
-// }
+	var x = document.getElementById('num_cards').selectedIndex;
+
+	alert(document.getElementsByTagName('option')[x].value);
+
+	
+
+	
+
+}

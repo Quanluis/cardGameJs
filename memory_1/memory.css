@@ -50,19 +50,46 @@ p {
   }
   
   .card {
+    position: relative;
+    transition: all 0.4s linear;
+    transform-style: preserve-3d;
     margin: 5px;
-    /* background-color: #6589f9; */
-    background-repeat: no-repeat;
-    background-position: center center;
+  }
+  .card,
+  .back,
+  .front {
     height: 80px;
     width: 64px;
   }
+  .back,
+  .front {
+      position: absolute;
+      backface-visibility: hidden;
+  }
+  .front {
+    border: 2px solid red;
+    background: url('./images/back.png');
+  }
+  .back{
+      background: url('./images/back.png');
+      transform: rotateY(180deg);
+      background-color: white;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center center;
+  }
+
 .selected {
-    border: 2px solid blue;
+    
+    transform: rotateY(180deg);
+}
+
+.match, 
+.front {
+    background: white !important;
 }
 .match {
     border: 4px solid red;
-    background-image: none !important;
 }
 .clear {
     clear: both;
